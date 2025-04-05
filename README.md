@@ -5,15 +5,15 @@
 Установка
 ---
 1. Создайте новую папку и откройте её в IDE.
-2. Откройте в консоль и введите
+2. Откройте консоль и введите:
 ```bash
 git clone https://github.com/MikhailYablokov/Avito-Parser.git .
 ```
-3. После введите
+3. После введите:
 ```bash
 pip install -r requirements.txt
 ```
-4. Для запуска парсера необходимо ввести в консоль
+4. Для запуска парсера необходимо ввести в консоль:
 ```bash
 python parser_avito.py
 ```
@@ -24,7 +24,7 @@ python parser_avito.py
 ```bash
 uvicorn main:app --reload
 ```
-6. После чего введите в строку поиска  http://127.0.0.1:8000
+6. После чего введите в строку поиска в браузере http://127.0.0.1:8000
 ![image](https://github.com/user-attachments/assets/d6762fd2-939b-4d3e-90e6-847243e63e1e)
 ![image](https://github.com/user-attachments/assets/013e140d-ef4a-4643-bd02-f691520fe2ee)
  
