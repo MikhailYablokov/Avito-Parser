@@ -214,7 +214,7 @@ class AvitoParse:
         logger.info(f"Сохранён файл {file_name} с {len(self.data)} объявлениями.")
 
     def parse(self):
-        with SB(uc=False, headed=False, headless=True, page_load_strategy="eager", block_images=True, disable_js=True) as self.driver:
+        with SB(uc=False, headed=False, headless=True, page_load_strategy="eager", block_images=True) as self.driver:
             try:
                 self.__get_url()
                 self.__paginator()

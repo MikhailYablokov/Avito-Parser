@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Загрузка XML</title>
+  <style>
+    body { font-family: Arial; margin: 40px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h2>Загрузка XML-файла с объявлениями</h2>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="xml_file" required>
+    <button type="submit">Загрузить</button>
+  </form>
+  {% if status %}
+    <p><strong>{{ status }}</strong></p>
+  {% endif %}
+  {% if ads %}
+    <table>
+      <thead>
+        <tr>
+          <th>Заголовок</th>
+          <th>Цена</th>
+          <th>Адрес</th>
+          <th>Площадь</th>
+          <th>Дата</th>
+          <th>Ссылка</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ad in ads %}
+        <tr>
+          <td>{{ ad.title }}</td>
+          <td>{{ ad.price }}</td>
+          <td>{{ ad.address }}</td>
+          <td>{{ ad.area }}</td>
+          <td>{{ ad.date }}</td>
+          <td><a href="{{ ad.url }}" target="_blank">Ссылка</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</body>
+</html>

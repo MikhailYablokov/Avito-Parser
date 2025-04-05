@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Загрузка XML</title>
+</head>
+<body>
+  <h2>Загрузка XML с объявлениями</h2>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="xml_file" required>
+    <button type="submit">Загрузить</button>
+  </form>
+  <div id="status">
+    <p>{{ status }}</p>
+  </div>
+</body>
+</html>
