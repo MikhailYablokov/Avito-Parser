@@ -202,6 +202,7 @@ class AvitoParse:
         if not self.data:
             logger.info("Нет данных для сохранения.")
             return
+        logger.info(f"Начинаю сохранение {len(self.data)} объявлений в XML.")
         root = ET.Element("real_estate")
         for ad in self.data:
             ad_element = ET.SubElement(root, "ad")
