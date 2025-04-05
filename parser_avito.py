@@ -181,13 +181,17 @@ class AvitoParse:
             date_elements = self.driver.find_elements(*LocatorAvito.DATE_PUBLIC)
             if date_elements:
                 detail_data["date_public"] = date_elements[0].text
+                logger.debug(f"Дата публикации получена: {detail_data['date_public']}")
             else:
                 detail_data["date_public"] = ""
+                logger.warning(f"Дата публикации не найдена для {url}")
             geo_elements = self.driver.find_elements(*LocatorAvito.GEO)
             if geo_elements:
                 detail_data["address"] = geo_elements[0].text
+                logger.debug(f"Адрес получен: {detail_data['address']}")
             else:
                 detail_data["address"] = ""
+                logger.warning(f"Адрес не найден для {url}")
         except Exception as e:
             logger.debug(f"Ошибка при парсинге детали объявления {url}: {e}")
             detail_data["date_public"] = ""
