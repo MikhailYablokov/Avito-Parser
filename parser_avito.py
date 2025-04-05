@@ -240,7 +240,7 @@ if __name__ == '__main__':
         logger.info(f"Начинаю парсинг региона: {region}")
         avito_parser = AvitoParse(
             url=base_url,
-            count=1,  # Количество страниц для парсинга на регион
+            count=35,  # Количество страниц для парсинга на регион
             region=region  # Передаем регион
         )
         avito_parser.parse()
