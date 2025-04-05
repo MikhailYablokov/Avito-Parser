@@ -59,20 +59,6 @@ uvicorn main:app --reload
   - seleniumbase
   - loguru
 
-### Запуск парсера
-Выполните команду:
-   ```bash
-   python avito_parser.py
-```
-Запуск веб-приложения
----
-
-Выполните в консоли:
-```bash
-uvicorn main:app --reload
-```
-- Откройте в браузере: http://127.0.0.1:8000.
-
 Структура проекта
 ---
 ```
