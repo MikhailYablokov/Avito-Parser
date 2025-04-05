@@ -145,7 +145,7 @@ class AvitoParse:
                     self.data.append(ad_data)
                     logger.info(f"Добавлено объявление [{len(self.data)}/2000]")
 
-                    if len(self.data) >= 2:
+                    if len(self.data) >= 2000:
                         self.__save_to_xml()
                         self.data = []  # Очищаем список после сохранения
 
