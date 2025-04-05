@@ -20,6 +20,14 @@ python parser_avito.py
 - Процесс работы приложения:
 ![image](https://github.com/user-attachments/assets/d22b67f7-a0ef-4120-b419-04f76e67a9fb)
 
+5. Для запуска простого веб-интерфейса для загрузкии XML-файлов введите в консоль:
+```bash
+uvicorn main:app --reload
+```
+6. После чего введите в строку поиска  http://127.0.0.1:8000
+![image](https://github.com/user-attachments/assets/d6762fd2-939b-4d3e-90e6-847243e63e1e)
+![image](https://github.com/user-attachments/assets/013e140d-ef4a-4643-bd02-f691520fe2ee)
+ 
 ## Описание проекта
 
 Проект состоит из двух основных частей:
