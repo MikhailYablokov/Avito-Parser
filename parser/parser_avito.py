@@ -8,7 +8,9 @@ from urllib.parse import urlparse, parse_qs
 from seleniumbase import SB
 from selenium.webdriver.common.by import By
 from loguru import logger
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class LocatorAvito:
     """Селекторы для парсинга Avito"""
@@ -40,13 +42,26 @@ class AvitoParse:
         logger.info(f"Открываю страницу: {self.url}")
         try:
             self.driver.open(self.url)
+            # Проверяем, не заблокирован ли доступ
             if "Доступ ограничен" in self.driver.get_title():
                 logger.info("Доступ ограничен: проблема с IP. Пауза перед повторной попыткой.")
-                time.sleep(random.randint(10, 20))
+                time.sleep(random.randint(10, 20))  # Оставляем паузу для обхода блокировки
                 return self.__get_url()
+
+            # Ожидаем появления элементов объявлений (или другого ключевого элемента)
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(LocatorAvito.TITLES)
+            )
+            logger.info("Страница успешно загружена.")
+
+        except TimeoutException:
+            logger.error(f"Превышено время ожидания загрузки элементов на странице {self.url}")
+            time.sleep(5)  # Пауза перед повторной попыткой при таймауте
+            return self.__get_url()
+
         except Exception as e:
             logger.error(f"Ошибка при открытии страницы {self.url}: {e}")
-            time.sleep(5)
+            time.sleep(5)  # Пауза перед повторной попыткой при других ошибках
             return self.__get_url()
 
     def __paginator(self):
@@ -192,7 +207,7 @@ class AvitoParse:
             ET.SubElement(ad_element, "url").text = ad.get("url", "")
             ET.SubElement(ad_element, "date").text = ad.get("date_public", "")
         # Формируем имя файла с текущей датой и временем
-        timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M')
+        timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
         file_name = f"avito_{self.region}_{timestamp}.xml"
         tree = ET.ElementTree(root)
         tree.write(file_name, encoding="utf-8", xml_declaration=True)
@@ -225,7 +240,7 @@ if __name__ == '__main__':
         logger.info(f"Начинаю парсинг региона: {region}")
         avito_parser = AvitoParse(
             url=base_url,
-            count=35,  # Количество страниц для парсинга на регион
+            count=1,  # Количество страниц для парсинга на регион
             region=region  # Передаем регион
         )
         avito_parser.parse()
