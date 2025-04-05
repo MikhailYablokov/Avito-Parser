@@ -84,6 +84,7 @@ class AvitoParse:
         self.url = self.get_next_page_url(self.url)
         logger.info(f"Переход на следующую страницу: {self.url}")
         self.driver.open(self.url)
+        logger.debug(f"Успешно открыт URL следующей страницы: {self.url}")
 
     def get_next_page_url(self, url: str):
         try:
@@ -180,13 +181,17 @@ class AvitoParse:
             date_elements = self.driver.find_elements(*LocatorAvito.DATE_PUBLIC)
             if date_elements:
                 detail_data["date_public"] = date_elements[0].text
+                logger.debug(f"Дата публикации получена: {detail_data['date_public']}")
             else:
                 detail_data["date_public"] = ""
+                logger.warning(f"Дата публикации не найдена для {url}")
             geo_elements = self.driver.find_elements(*LocatorAvito.GEO)
             if geo_elements:
                 detail_data["address"] = geo_elements[0].text
+                logger.debug(f"Адрес получен: {detail_data['address']}")
             else:
                 detail_data["address"] = ""
+                logger.warning(f"Адрес не найден для {url}")
         except Exception as e:
             logger.debug(f"Ошибка при парсинге детали объявления {url}: {e}")
             detail_data["date_public"] = ""
@@ -197,6 +202,7 @@ class AvitoParse:
         if not self.data:
             logger.info("Нет данных для сохранения.")
             return
+        logger.info(f"Начинаю сохранение {len(self.data)} объявлений в XML.")
         root = ET.Element("real_estate")
         for ad in self.data:
             ad_element = ET.SubElement(root, "ad")
