@@ -145,7 +145,7 @@ class AvitoParse:
                     self.data.append(ad_data)
                     logger.info(f"Добавлено объявление [{len(self.data)}/2000]")
 
-                    if len(self.data) >= 2000:
+                    if len(self.data) >= 2:
                         self.__save_to_xml()
                         self.data = []  # Очищаем список после сохранения
 
@@ -214,7 +214,7 @@ class AvitoParse:
         logger.info(f"Сохранён файл {file_name} с {len(self.data)} объявлениями.")
 
     def parse(self):
-        with SB(uc=False, headed=False, headless=True, page_load_strategy="eager", block_images=True) as self.driver:
+        with SB(uc=False, headed=False, headless=True, page_load_strategy="eager", block_images=True, disable_js=True) as self.driver:
             try:
                 self.__get_url()
                 self.__paginator()
