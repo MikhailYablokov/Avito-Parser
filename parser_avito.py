@@ -84,6 +84,7 @@ class AvitoParse:
         self.url = self.get_next_page_url(self.url)
         logger.info(f"Переход на следующую страницу: {self.url}")
         self.driver.open(self.url)
+        logger.debug(f"Успешно открыт URL следующей страницы: {self.url}")
 
     def get_next_page_url(self, url: str):
         try:
